@@ -517,6 +517,7 @@ function App() {
 
   const era = eras[eraIndex]
   const product = era.products[productIndex % era.products.length]
+  const colorProgress = eraIndex / (eras.length - 1)
 
   useEffect(() => {
     writeDialMemory(eraIndex, productIndex)
@@ -541,7 +542,16 @@ function App() {
   }
 
   return (
-    <main className="time-machine" style={{ '--era-color': era.palette }}>
+    <main
+      className="time-machine"
+      style={{
+        '--era-color': era.palette,
+        '--color-progress': colorProgress,
+        '--gray-strength': 1 - colorProgress,
+      }}
+    >
+      <div className="monochrome-layer" aria-hidden="true" />
+
       <section className="manifesto" aria-label="Trend manifesto">
         <p>What is trend to me?</p>
         <p>What kind of trend are you following, and whose trend was it before yours?</p>
